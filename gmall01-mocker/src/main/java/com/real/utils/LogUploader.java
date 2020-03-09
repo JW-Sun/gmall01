@@ -12,8 +12,9 @@ public class LogUploader {
 
     public static void sendLogStream(String log) {
         try {
-//            URL url = new URL("http://192.168.159.102:8081/log");
+//            URL url = new URL("http://192.168.159.102:8081/log")
 
+            //使用nginx负载均衡到三台机子上的url设置
             URL url = new URL("http://192.168.159.102/log");
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
