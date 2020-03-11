@@ -148,8 +148,8 @@ public class JsonMocker {
               `area` string COMMENT '城市' */
 
 
-        String mid =  "mid_"+ RandomNum.getRandInt(1,500);
-        String uid = ""+ RandomNum.getRandInt(1,500);
+        String mid =  "mid_"+ RandomNum.getRandInt(1, 100);
+        String uid = ""+ RandomNum.getRandInt(1, 500);
         String os = osOptionGroup.getRandomOpt().getValue();
         String appid = this.appId;
         String area = areaOptionGroup.getRandomOpt().getValue();
@@ -173,7 +173,7 @@ public class JsonMocker {
 
     public static void genLog() {
         JsonMocker jsonMocker = new JsonMocker();
-        jsonMocker.startupNum = 10;
+        jsonMocker.startupNum = 50;
         for (int i = 0; i < jsonMocker.startupNum; i++) {
             String startupLog = jsonMocker.initStartupLog();
             jsonMocker.sendLog(startupLog);
