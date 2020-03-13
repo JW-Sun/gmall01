@@ -13,6 +13,8 @@
         <module>gmall01-mocker</module>
         <module>gmall01-logger</module>
         <module>gmall01-realtime</module>
+        <module>gmall01-publish</module>
+        <module>gmall01-canal</module>
     </modules>
 
     <parent>

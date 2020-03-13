@@ -2,3 +2,5 @@
 /gmall01-common/target/
 /gmall01-logger/target/
 /gmall01-mocker/target/
+gmall01.iml
+gmall01-common.iml
