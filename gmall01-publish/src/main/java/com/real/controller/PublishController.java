@@ -1,6 +1,7 @@
 package com.real.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.real.service.OrderService;
 import com.real.service.PublishService;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class PublishController {
     @Autowired
     private PublishService publishService;
 
+    @Autowired
+    private OrderService orderService;
+
     //realtime-total?date=2020-03-13
     @GetMapping("realtime-total")
     public String getTotal(@RequestParam("date") String date) {
@@ -31,6 +35,14 @@ public class PublishController {
         dauMap.put("value", dauTotal);
 
         totalList.add(dauMap);
+
+        Map<String, Object> orderAmountMap = new HashMap<>();
+        dauMap.put("id", "order_amount");
+        dauMap.put("name", "交易额");
+        Double orderAmountTotal = orderService.selectOrderAmountTotal(date);
+        dauMap.put("value", orderAmountTotal);
+
+        totalList.add(orderAmountMap);
 
         String res = JSON.toJSONString(totalList);
 
@@ -54,6 +66,20 @@ public class PublishController {
             hourMap.put("yesterday", dauHourCountYesterday);
 
             return JSON.toJSONString(hourMap);
+        } else if ("order_amount".equals(id)) {
+            //今天
+            Map<String, Double> orderHourAmount = orderService.getOrderHourAmount(date);
+            //昨天
+            String yesterday = getYesterday(date);
+
+            Map<String, Double> hourMapYesterday = orderService.getOrderHourAmount(yesterday);
+
+            Map hourAmountMap = new HashMap();
+
+            hourAmountMap.put("today", orderHourAmount);
+            hourAmountMap.put("yesterday", hourMapYesterday);
+
+            return JSON.toJSONString(hourAmountMap);
         }
 
         return null;
